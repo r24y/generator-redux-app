@@ -36,12 +36,7 @@ module.exports = yeoman.generators.Base.extend({
 			filter: function(val) {
         return normalizeUrl(val);
 			}
-		}, {
-      name: 'flow',
-      message: 'Do you need to use flow type?',
-      type: 'confirm',
-      default: false
-    }],
+		}],
     function(props) {
       var asyncCount = 0;
       this.moduleName = props.moduleName;
@@ -51,7 +46,7 @@ module.exports = yeoman.generators.Base.extend({
       this.email = this.user.git.email();
       this.website = props.website;
       this.humanizedWebsite = humanizeUrl(this.website);
-      this.flow = props.flow;
+      this.flow = false;
 
 
       this.template('editorconfig', '.editorconfig');
@@ -69,11 +64,6 @@ module.exports = yeoman.generators.Base.extend({
       this.template('_package.json', 'package.json');
       this.template('README.md');
       this.template('babelrc', '.babelrc');
-
-      if (this.flow) {
-        this.template('flowconfig', '.flowconfig');
-      }
-
       this.directory('src', 'src');
       this.directory('test', 'test');
 
