@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
-import counter from './counter';
 
-
-const rootReducer = combineReducers({
-  counter
-});
+//const rootReducer = combineReducers({});
+function rootReducer(state={}, action) {
+  return state;
+};
 
 
 export default rootReducer;

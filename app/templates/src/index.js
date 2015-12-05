@@ -1,13 +1,21 @@
+import 'babel/polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import Root from './containers/Root';
-import { createHistory } from 'history';
+import { Router } from 'react-router';
+import { Provider } from 'react-redux';
 
+import createHistory from 'history/lib/createBrowserHistory';
+
+import configureStore from './store/configureStore';
+import routes from './routes';
 
 const history = createHistory();
+const store = configureStore();
 
 
 render(
-  <Root history={history} />,
+  (<Provider store={store}>
+    <Router history={history} children={routes} />
+  </Provider>),
   document.getElementById('root')
 );
