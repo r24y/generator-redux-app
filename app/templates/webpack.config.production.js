@@ -1,22 +1,15 @@
 var path = require('path');
 var webpack = require('webpack');
+var config = require('./webpack.config');
 
-
-module.exports = {
+var newConfig = Object.assign(config, {
   devtool: 'source-map',
   entry: './src/index',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
-  },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       '__DEVTOOLS__': false,
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+      'process.env': JSON.stringify('production')
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -24,15 +17,20 @@ module.exports = {
         warnings: false
       }
     })
-  ],
-  resolve: {
-    extensions: ['', '.js']
-  },
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      exclude: /node_modules/
-    }]
-  }
-};
+  ]
+});
+newConfig.module.loaders = newConfig.module.loaders.map(function (loader) {
+  var newLoader = {};
+  Object.keys(loader).forEach(function(k) {
+    var v = loader[k];
+    if (k === 'loaders' && v instanceof Array) {
+      return newLoader[k] = loader[k].filter(function (v) {
+        return v !== 'react-hot';
+      });
+    }
+    newLoader[k] = loader[k];
+  });
+  return newLoader;
+});
+
+module.exports = newConfig;
