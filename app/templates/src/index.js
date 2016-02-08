@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import createHistory from 'history/lib/createBrowserHistory';
 
-import configureStore from './store/configureStore';
+import configureStore from './store';
 import routes from './routes';
 
 const history = createHistory();

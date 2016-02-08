@@ -19,7 +19,7 @@
     "prepublish": "npm run clean && npm run build"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": "^4.0.0"
   },
   "keywords": [
     "redux",

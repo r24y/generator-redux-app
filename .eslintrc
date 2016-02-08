@@ -1,13 +1,15 @@
 {
-  "extends": "airbnb/base",
+  "extends": "airbnb",
   "env": {
-    "mocha": true,
+    "browser": true,
     "node": true
   },
   "rules": {
-    "no-var": 0,
-    "vars-on-top": 0,
-    "comma-dangle": 0,
-    "strict": 0
+    "indent": 2,
+    "id-length": 0,
+    "func-names": 0,
+    "spaced-comment": 0,
+    "one-var": [2, "never"],
+    "strict": 1
   }
 }
