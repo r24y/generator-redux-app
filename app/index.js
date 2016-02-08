@@ -1,10 +1,6 @@
 'use strict';
-
-var normalizeUrl = require('normalize-url');
-var humanizeUrl = require('humanize-url');
 var yeoman = require('yeoman-generator');
 var _s = require('underscore.string');
-
 
 module.exports = yeoman.generators.Base.extend({
   init: function init() {
@@ -17,34 +13,10 @@ module.exports = yeoman.generators.Base.extend({
       filter: function filter(val) {
         return _s.slugify(val);
       }
-    }, {
-      name: 'githubUsername',
-      message: 'What is your GitHub username?',
-      store: true,
-      validate: function validate(val) {
-        return val.length > 0 ? true : 'You have to provide a username';
-      }
-    }, {
-      name: 'website',
-      message: 'What is the URL of your website?',
-      store: true,
-      validate: function validate(val) {
-        return val.length > 0 ? true : 'You have to provide a website URL';
-      },
-      filter: function filter(val) {
-        return normalizeUrl(val);
-      }
     }],
     function promptCallback(props) {
       this.moduleName = props.moduleName;
       this.camelModuleName = _s.camelize(props.moduleName);
-      this.githubUsername = props.githubUsername;
-      this.name = this.user.git.name();
-      this.email = this.user.git.email();
-      this.website = props.website;
-      this.humanizedWebsite = humanizeUrl(this.website);
-      this.flow = false;
-
 
       this.template('editorconfig', '.editorconfig');
       this.template('gitattributes', '.gitattributes');
