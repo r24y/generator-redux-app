@@ -1,44 +1,41 @@
 'use strict';
 
 var normalizeUrl = require('normalize-url');
-var path = require('path');
 var humanizeUrl = require('humanize-url');
 var yeoman = require('yeoman-generator');
-var mkdirp = require('mkdirp');
 var _s = require('underscore.string');
 
 
 module.exports = yeoman.generators.Base.extend({
-	init: function() {
+  init: function init() {
     var cb = this.async();
 
     this.prompt([{
-			name: 'moduleName',
-			message: 'What do you want to name your app?',
-			default: this.appname.replace(/\s/g, '-'),
-			filter: function(val) {
-				return _s.slugify(val);
-			}
-		}, {
-			name: 'githubUsername',
-			message: 'What is your GitHub username?',
-			store: true,
-			validate: function(val) {
-				return val.length > 0 ? true : 'You have to provide a username';
-			}
-		}, {
-			name: 'website',
-			message: 'What is the URL of your website?',
-			store: true,
-			validate: function(val) {
+      name: 'moduleName',
+      message: 'What do you want to name your app?',
+      default: this.appname.replace(/\s/g, '-'),
+      filter: function filter(val) {
+        return _s.slugify(val);
+      }
+    }, {
+      name: 'githubUsername',
+      message: 'What is your GitHub username?',
+      store: true,
+      validate: function validate(val) {
+        return val.length > 0 ? true : 'You have to provide a username';
+      }
+    }, {
+      name: 'website',
+      message: 'What is the URL of your website?',
+      store: true,
+      validate: function validate(val) {
         return val.length > 0 ? true : 'You have to provide a website URL';
-			},
-			filter: function(val) {
+      },
+      filter: function filter(val) {
         return normalizeUrl(val);
-			}
-		}],
-    function(props) {
-      var asyncCount = 0;
+      }
+    }],
+    function promptCallback(props) {
       this.moduleName = props.moduleName;
       this.camelModuleName = _s.camelize(props.moduleName);
       this.githubUsername = props.githubUsername;
@@ -68,10 +65,9 @@ module.exports = yeoman.generators.Base.extend({
       this.directory('test', 'test');
 
       cb();
-
     }.bind(this));
-	},
-	install: function() {
+  },
+  install: function install() {
     this.installDependencies({ bower: false });
   }
 });
