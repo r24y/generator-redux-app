@@ -1,8 +1,6 @@
 # <%= moduleName %>
 
-> Another boilerplate for personal usage
-
-Extend [counter examples](https://github.com/rackt/redux/tree/master/examples/counter) with [react-router](https://github.com/rackt/react-router). And use [chai](https://github.com/chaijs/chai) and [sinon](https://github.com/sinonjs/sinon) instand of [expect](https://github.com/mjackson/expect).
+Redux app.
 
 
 ## Start
@@ -11,6 +9,12 @@ Extend [counter examples](https://github.com/rackt/redux/tree/master/examples/co
 npm start
 ```
 
+## Code structure
+
+You are encouraged to create a folder in `src` for each conceptual area your app has. For instance, a shopping app
+might have `homepage`, `products`, and `cart` subfolders. This allows someone who's new to the project to glance at
+the folder structure and not only know what the app does, but know where to go to make changes.
+
 ## Testing
 
 ```sh
@@ -18,8 +22,3 @@ npm test
 ```
 
 note: jsdom >= v4.0 can not work on node 0.x
-
-
-## License
-
-MIT © [<%= name %>](<%= website %>)

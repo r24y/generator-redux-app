@@ -4,7 +4,6 @@
   "description": "My module",
   "main": "lib/index.js",
   "license": "MIT",
-  "repository": "<%= githubUsername %>/<%= moduleName %>",
   "scripts": {
     "start": "node server.js",
     "clean": "rimraf lib dist coverage",
@@ -12,17 +11,12 @@
     "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive --require ./test/setup.js",
     "test:watch": "npm test -- --watch",
     "test:cov": "NODE_ENV=test babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --recursive",
-    "check": "npm run lint && npm run test <% if (flow) { %> && flow check <% } %>",
+    "check": "npm run lint && npm run test",
     "build": "NODE_ENV=production webpack src/index.js --config webpack.config.production.js",
     "preversion": "npm run clean && npm run check",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run clean && npm run build"
-  },
-  "author": {
-    "name": "<%= name %>",
-    "email": "<%= email %>",
-    "url": "<%= humanizedWebsite %>"
   },
   "engines": {
     "node": ">=0.10.0"

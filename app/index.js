@@ -27,7 +27,7 @@ module.exports = yeoman.generators.Base.extend({
       this.template('server.js');
       this.template('webpack.config.js');
       this.template('webpack.config.production.js');
-      this.template('LICENSE');
+      // this.template('LICENSE');
       this.template('CHANGELOG.md');
       // needed so npm doesn't try to use it and fail
       this.template('_package.json', 'package.json');
