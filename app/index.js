@@ -1,4 +1,4 @@
-'use strict';
+/* eslint no-var: 0 */
 var yeoman = require('yeoman-generator');
 var _s = require('underscore.string');
 
@@ -12,7 +12,7 @@ module.exports = yeoman.generators.Base.extend({
       default: this.appname.replace(/\s/g, '-'),
       filter: function filter(val) {
         return _s.slugify(val);
-      }
+      },
     }],
     function promptCallback(props) {
       this.moduleName = props.moduleName;
@@ -41,5 +41,5 @@ module.exports = yeoman.generators.Base.extend({
   },
   install: function install() {
     this.installDependencies({ bower: false });
-  }
+  },
 });

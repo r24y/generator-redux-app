@@ -1,8 +1,10 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const MainView = (props) => (<div>
-    <pre>{JSON.stringify(props,null,2)}</pre>
-</div>);
-
-export default connect()(MainView);
+export default class MainView extends Component {
+  render() {
+    return (<div>
+      <pre>{JSON.stringify(this.props, null, 2)}</pre>
+    </div>);
+  }
+}
