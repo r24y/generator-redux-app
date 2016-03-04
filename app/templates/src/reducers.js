@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux';
 
-function nilReducer(state = {}) {
-  return state;
-}
-
-const rootReducer = combineReducers({nil: nilReducer});
+const rootReducer = combineReducers({
+  routing: (x = {}) => x,
+});
 
 export default rootReducer;

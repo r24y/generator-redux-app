@@ -4,36 +4,51 @@ import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import createLogger from 'redux-logger';
 import rootReducer from './reducers';
-
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 const loggerMiddleware = createLogger({
   level: 'info',
-  collapsed: true
+  collapsed: true,
 });
+
+const masterReducer = (state = {}, action) => {
+  let nextState = rootReducer(state, action);
+  const nextRouting = routerReducer(state.routing, action);
+  if (nextRouting !== nextState.routing) {
+    nextState = {
+      ...nextState,
+      routing: nextRouting,
+    };
+  }
+  return nextState;
+};
 
 
 let createStoreWithMiddleware;
 
+const myMiddleware = [
+  thunkMiddleware,
+  promiseMiddleware,
+  routerMiddleware(browserHistory),
+];
+
 if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {
-  const { devTools, persistState } = require('redux-devtools');
+  const devTools = require('remote-redux-devtools');
   createStoreWithMiddleware = compose(
-    applyMiddleware(thunkMiddleware, promiseMiddleware, loggerMiddleware),
-    devTools(),
-    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+    applyMiddleware(...myMiddleware),
+    devTools()
   )(createStore);
 } else {
-  createStoreWithMiddleware = applyMiddleware(
-    thunkMiddleware,
-    promiseMiddleware
-  )(createStore);
+  createStoreWithMiddleware = applyMiddleware(...myMiddleware, loggerMiddleware)(createStore);
 }
 
 
 /**
  * Creates a preconfigured store.
  */
-export default function configureStore(initialState) {
-  const store = createStoreWithMiddleware(rootReducer, initialState);
+export default function configureStore(initialState = {}) {
+  const store = createStoreWithMiddleware(masterReducer, initialState);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
